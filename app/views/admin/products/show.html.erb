@@ -2,7 +2,13 @@
 
 <div class="row">
   <div class="col-md-3 mt-3 text-center text-md-left">
-    <%= image_tag @product.get_image(250, 250) %>
+    <div>
+      <% if @product.image.attached? %>
+        <%= image_tag @product.image, size: "200x200" %>
+      <% else %>
+        <%= image_tag 'no_image', size: "200x200" %>
+      <% end %>
+    </div>
   </div>
     <table class="table table-bordered mt-3 mt-md-0 col-md-8 offset-md-1">
       <tbody>
@@ -20,7 +26,7 @@
         </tr>
         <tr>
           <td>税込み価格（税抜価格）</htdd>
-          <td><%= @product.with_tax_price.to_s(:delimited) %>(<%= @product.price.to_s(:delimited) %>) 円</span></td>
+          <td><%= @product.with_tax_price.to_s(:delimited) %>(<%= @product.tax_excluded_price.to_s(:delimited) %>) 円</span></td>
         </tr>
         <tr>
           <td>販売ステータス</td>
