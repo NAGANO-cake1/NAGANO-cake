@@ -66,7 +66,7 @@
       <span>電話番号(ハイフンなし)</span><br>
       <span class="col">
         <% f.label :telephone_number,"電話番号" %>
-        <%#= f.text_field :telephone_number, autofocus: true, placeholder:"00000000",class: "form-control w-100" %>
+        <%= f.text_field :telephone_number, autofocus: true, placeholder:"00000000",class: "form-control w-100" %>
       </span>
     </div>
   </div>
@@ -88,8 +88,8 @@
     </div>
   </div>
 
-  <div>
-    
+  <div class="container text-center mt-4">
+    <%= f.submit "新規登録", class: 'btn btn-outline-info' %>
   </div>
 <% end %>
 

@@ -1,4 +1,13 @@
   ja: # 日本語の設定を行う
+    activerecord:
+      errors:
+        models:
+          user:
+            attributes:
+              email:
+              password:
+                blank: は内容が入力されていません。
+
     time:
         formats:
           default: "%Y/%m/%d %H:%M:%S"
