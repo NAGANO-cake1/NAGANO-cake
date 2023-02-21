@@ -6,5 +6,8 @@ class Product < ApplicationRecord
 
     has_one_attached :image
 
-
+    def with_tax_price
+    tax = 1.1
+    (tax_excluded_price * tax).floor
+    end
 end
