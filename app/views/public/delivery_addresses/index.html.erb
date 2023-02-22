@@ -1,0 +1,41 @@
+<span style="background-color:#f4f4f4">  配送先登録 / 一覧  </span>
+      <%= form_with model: @delivery, url: delivery_addresses_path, method: :post do |f| %>
+        <table style="margin-bottom:40px">
+          <tr>
+           <td >郵便番号(ハイフンなし)    </td>
+           <td><%= f.text_field :postal_code, placeholder: "0000000" %></td>
+           <td colspan="1"></td>
+          </tr>
+          <tr>
+           <td>住所</td>
+           <td><%= f.text_field :address, size: "45x20", placeholder: "東京都渋谷区代々木神園町0-0" %></td>
+          </tr>
+          <tr>
+            <td>宛名</td>
+            <td><%= f.text_field :addressee, placeholder: "令和道子" %></td>
+            <td class="text-right"><%= f.submit '新規登録', class:"btn btn-success" %></td>
+          </tr>
+        </table>
+      <% end %>
+
+
+     <table border="1">
+       <thead>
+        <tr bgcolor="#f4f4f4">
+         <th>郵便番号</th>
+         <th>住所</th>
+         <th>宛名</th>
+         <th colspan="1"></th>
+        </tr>
+       </thead>
+       <% @deliveries.each do |delivery| %>
+         <tbody>
+           <tr>
+            <th><%= delivery.postal_code %>　</th>
+            <th><%= delivery.address %>　</th>
+            <th><%= delivery.addressee %>　</th>
+            <th>　<%= link_to "編集する", edit_delivery_address_path(delivery.id), class: "btn btn-success" %>　<%= link_to '削除する', delivery_address_path(delivery.id), method: :delete, "data-confirm" => "本当に削除しますか？", class:"btn btn-danger" %>　</th>
+           </tr>
+         </tbody>
+       <% end %>
+     </table>
