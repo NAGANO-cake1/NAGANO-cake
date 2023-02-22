@@ -17,13 +17,13 @@ Rails.application.routes.draw do
       get "unsubscribe"=>"customers#unsubscribe"
       patch "withdraw"=>"customers#withdraw"
     end
-  
+
     resources :cart_items, only: [:index, :update, :create, :destroy] do
       collection do
-        delete "all_destroy"=>"cart_items#all_destroy"  
+        delete "all_destroy"=>"cart_items#all_destroy"
       end
     end
-  
+
     resources :orders, only: [:new, :create, :index, :show] do
           collection do
             post "confirm"=>"orders#confirm"
@@ -32,18 +32,18 @@ Rails.application.routes.draw do
         end
         resources :delivery_addresses, except: [:new, :show]
       end
-  
+
   # 管理者用
   # URL /admin/sign_in ...
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     sessions: "admin/sessions"
   }
-  
+
   namespace :admin do
-      root to: "homes#top"
+      get "/admin"=>"admin#homes"
       resources :products, except: [:destroy]
       resources :genres, only: [:index, :create, :edit, :update]
-      resources :customers, only: [:index, :show, :edit, :update] 
+      resources :customers, only: [:index, :show, :edit, :update]
       resources :orders, only: [:show, :update] do
         resources :order_details, only: [:update]
       end
