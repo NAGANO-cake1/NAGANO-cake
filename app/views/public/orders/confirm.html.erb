@@ -7,22 +7,24 @@
     <th>数量</th>
     <th>小計</th>
   </tr>
+  <% @cart_items.each do |cart_item| %>
   <tr>
-    <td>チョコバナナミルフィーユ</td>
-    <td>1,100</td>
-    <td>1</td>
-    <td>1,100</td>
+    <td><%= cart_item.item.name %></td>
+    <td><%= (cart_item.item.price).to_s(:delimited) %></td>
+    <td><%= cart_item.quantity %></td>
+    <td><%= (cart_item.price*cart_item.quantity).to_s(:delimited) %></td>
   </tr>
+  <% end %>
 </table>
 
 <table class="table">
   <tr>
     <td>送料</td>
-    <td>800</td>
+    <td><%= @order.shipping_fee %></td>
     <td>商品合計</td>
-    <td></td>
+    <td><%= @total.to_s(:delimited) %></td>
     <td>請求金額</td>
-    <td></td>
+    <td><%= number_to_delimited(@total.to_s + @order.shipping_fee) %></td>
   </tr>
 </table>
 
