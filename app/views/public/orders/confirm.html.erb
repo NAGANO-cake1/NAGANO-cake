@@ -27,8 +27,12 @@
 </table>
 
   <div><strong>支払方法</strong></div>
-    <%=  @order.payment_method %>
+　　<% if @order.payment_method == Order.payment_methods.key(0) %>
+    クレジットカード
+    <% elsif @order.payment_method == Order.payment_methods.key(1) %>
+    銀行振込
+    <% end %>
 
   <div><strong>お届け先</strong></div>
-    <%= @order.shipping_postal_code + @order.shipping_address%>
+    <%=  '〒' + @order.shipping_postal_code + @order.shipping_address%>
     <%= @order.shipping_name%>
