@@ -5,6 +5,9 @@ class Public::OrdersController < ApplicationController
 
   def confirm
     @order = Order.new(order_params)
+    @cart_items = current_customer.cart_items.all
+    # @total = @cart_items.inject(0){|sum, item| sum +item.taxin_price*item.quantity}
+
     # binding.pry
 
 
