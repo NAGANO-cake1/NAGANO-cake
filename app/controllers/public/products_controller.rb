@@ -3,12 +3,13 @@ class Public::ProductsController < ApplicationController
     @products = Product.all
     @quantity = Product.count
     @genres = Genre.all
+
   end
 
   def show
     @product = Product.find(params[:id])
     @cart_item = CartItem.new
-    @genres = Genre.where(is_enabled: true)
+    @genres = Genre.all
   end
 
   def search
