@@ -13,8 +13,8 @@ def update
 end
 
 def create
-     if CartItem.find_by(item_id: params[:cart_item][:item_id], customer_id: params[:cart_item][:customer_id]).present?
-          cart_item = CartItem.find_by(item_id: params[:cart_item][:item_id], customer_id: params[:cart_item][:customer_id])
+     if CartItem.find_by(product_id: params[:cart_item][:product_id], customer_id: params[:cart_item][:customer_id]).present?
+          cart_item = CartItem.find_by(product_id: params[:cart_item][:product_id], customer_id: params[:cart_item][:customer_id])
           cart_item.quantity += params[:cart_item][:quantity].to_i
           cart_item.update
      else
@@ -39,7 +39,7 @@ end
 private
 
   def cart_item_params
-      params.require(:cart_item).permit(:item_id, :customer_id, :quantity)
+      params.require(:cart_item).permit(:product_id, :customer_id, :quantity)
   end
 
 end
