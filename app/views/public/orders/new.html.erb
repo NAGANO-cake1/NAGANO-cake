@@ -1,6 +1,6 @@
 <h4>注文情報入力</h4>
 
-<%= form_with model: @order, url: new_order_path do |f| %>
+<%= form_with model: @order, url: confirm_orders_path do |f| %>
   <div><strong>支払方法</strong></div>
   <%= f.radio_button :payment_method, Order.payment_methods.key(0) %>
   <%= f.label :payment_method_credit_card, Order.payment_methods_i18n[:credit_card] %><br>
@@ -11,7 +11,7 @@
   <div><strong>お届け先</strong></div>
 
   <%= f.radio_button :select_address, 0 %>
-  <%= f.label :select_address_self, "ご自身の住所" %><br>
+  <%= f.label :select_address_0, "ご自身の住所" %><br>
   <%#= current_customer.postal_display %><br>
   <%#= current_customer.address %><br>
   <%#= current_customer.name %>
@@ -19,13 +19,13 @@
 
 
   <%= f.radio_button :select_address, 1 %>
-  <%= f.label :select_address_registered, "登録済住所から選択" %><br>
+  <%= f.label :select_address_1, "登録済住所から選択" %><br>
   <!--配送先住所から。-->
   <%#= f.select :address_id, options_from_collection_for_select(Address.all, :id, :address_display) %>
 
 
   <%= f.radio_button :select_address, 2 %>
-  <%= f.label :select_address_new, "新しいお届け先" %><br>
+  <%= f.label :select_address_2, "新しいお届け先" %><br>
 
   <%= f.label :shipping_postal_code, "郵便番号(ハイフンなし)"%>
   <%= f.text_field :shipping_postal_code %><br>
