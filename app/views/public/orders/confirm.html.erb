@@ -27,5 +27,8 @@
 </table>
 
   <div><strong>支払方法</strong></div>
+    <%=  @order.payment_method %>
 
   <div><strong>お届け先</strong></div>
+    <%= @order.shipping_postal_code + @order.shipping_address%>
+    <%= @order.shipping_name%>
