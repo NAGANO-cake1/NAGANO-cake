@@ -33,7 +33,8 @@ class Public::SessionsController < Devise::SessionsController
     return if !@customer
     # 取得したアカウントのパスワードと入力されたパスワードが一致してるかを判別
     if @customer.valid_password?(params[:customer][:password]) && @customer.status
-      redirect_to new_customer_registration_path
+    # if @customer.valid_password?(params[:customer][:password]) && @customer.is_deleted
+      redirect_to new_customer_registration_path #サインアップに遷移
     end
   end
 

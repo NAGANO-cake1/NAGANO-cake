@@ -1,0 +1,20 @@
+<div class='container mt-5'>
+    <div class="container text-center mt-4">
+      <div class="col-xs-offset-1">
+        <h3>
+          <strong>本当に退会しますか？</strong></br>
+        </h3>
+          <div>
+            退会すると、<span style="background-color: #ffff66;">会員情報</span>や</br>
+            <span style="background-color: #ffff66;">これまでの購入履歴</span>が閲覧できなくなります。</br>
+            退会する場合は、「退会する」をクリックしてください。
+          </div>
+      </div>
+    </div>
+    <div class="container text-center mt-4">
+      <div class="col-xs-offset-1">
+        <%= link_to "退会しない", :back, class: 'btn btn-outline-success' %>
+        <%= link_to "退会する", withdraw_customers_path, method: :patch, data: { confilm: "本当に退会しますか？" }, class: 'btn btn-danger' %>
+      </div>
+    </div>
+</div>
