@@ -30,10 +30,8 @@
 
   <div><strong>支払方法</strong></div>
 　　<% if @order.payment_method == Order.payment_methods.key(0) %>
-    クレジットカード
     <%= Order.payment_methods_i18n[:credit_card] %>
     <% elsif @order.payment_method == Order.payment_methods.key(1) %>
-    銀行振込
     <%= Order.payment_methods_i18n[:transfer] %>
     <% end %>
 

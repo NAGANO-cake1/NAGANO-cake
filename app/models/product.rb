@@ -12,5 +12,4 @@ class Product < ApplicationRecord
     (tax_excluded_price * tax).floor
     end
 
-
 end

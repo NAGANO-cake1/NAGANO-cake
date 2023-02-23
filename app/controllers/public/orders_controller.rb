@@ -66,7 +66,6 @@ class Public::OrdersController < ApplicationController
     @orders = current_customer.orders.all
     @order_details = OrderDetail.all
 
-
   end
 
 
