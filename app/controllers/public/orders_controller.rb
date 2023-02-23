@@ -54,10 +54,12 @@ class Public::OrdersController < ApplicationController
         @order.total_bill_amount = @cart_items.inject(0) { |sum, cart_item| sum + cart_item.subtotal }
         render 'confirm'
       end
-
-
   end
 
+  def index
+    @order= current_customer.order.all
+
+  end
 
 
   private
