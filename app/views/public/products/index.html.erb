@@ -10,7 +10,11 @@
               <div class="col mb4">
                 <div class="card border-0">
                 <%= link_to product_path(product) do %>
-                  <%= image_tag product.image, size: "150x150"%>
+                    <% if product.image.attached? %>
+                      <%= image_tag product.image, size: "150x150" %>
+                    <% else %>
+                      <%= image_tag 'no_image.jpg', size: "150x150" %>
+                    <% end %>
                   <div>
                   <p><%= product.name %></p>
                 <% end %>
