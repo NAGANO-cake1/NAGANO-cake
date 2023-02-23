@@ -5,6 +5,11 @@ class Public::OrdersController < ApplicationController
 
   def confirm
     @order = Order.new(order_params)
+    @cart_items = current_customer.cart_items.all
+    @order.total_bill_amount = @cart_items.inject(0) { |sum, cart_item| sum + cart_item.subtotal }
+
+    # @total = @cart_items.inject(0){|sum, item| sum +@cart_item.product.with_tax_price*item.quantity}
+
     # binding.pry
 
 
@@ -28,6 +33,28 @@ class Public::OrdersController < ApplicationController
       @order.shipping_postal_code = params[:order][:shipping_postal_code]
       @order.shipping_address = params[:order][:shipping_address]
     end
+  end
+
+  def create
+    order = current_customer.orders.new(order_params)
+    cart_items = current_customer.cart_items.all
+      if order.save
+        cart_items.each do |cart_item|
+          order_detail = OrderDetail.new
+          order_detail.order_id = order.id
+          order_detail.product_id = cart_item.product_id
+          order_detail.purchase_price = order.total_bill_amount + order.shipping_fee
+        end
+        redirect_to complete_orders_path
+
+      else
+        # 保存できなかったときの処理
+        @order = Order.new(order_params)
+        @cart_items = current_customer.cart_items.all
+        @order.total_bill_amount = @cart_items.inject(0) { |sum, cart_item| sum + cart_item.subtotal }
+        render 'confirm'
+      end
+
 
   end
 
@@ -36,7 +63,7 @@ class Public::OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:payment_method, :shipping_address, :shipping_name, :shipping_postal_code)
+    params.require(:order).permit(:payment_method, :shipping_address, :shipping_name, :shipping_postal_code, :total_bill_amount)
   end
 
 end
