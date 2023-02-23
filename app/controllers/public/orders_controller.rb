@@ -6,7 +6,8 @@ class Public::OrdersController < ApplicationController
   def confirm
     @order = Order.new(order_params)
     @cart_items = current_customer.cart_items.all
-    @order.total_bill_amount = @cart_items.inject(0) { |sum, cart_item| sum + cart_item.subtotal }
+    @total = @cart_items.inject(0) { |sum, cart_item| sum + cart_item.subtotal }
+    @order.total_bill_amount = @total + @order.shipping_fee
 
     # @total = @cart_items.inject(0){|sum, item| sum +@cart_item.product.with_tax_price*item.quantity}
 
@@ -38,14 +39,19 @@ class Public::OrdersController < ApplicationController
   def create
     order = current_customer.orders.new(order_params)
     cart_items = current_customer.cart_items.all
+    @order_detail = OrderDetail.new
+
       if order.save
         cart_items.each do |cart_item|
-          order_detail = OrderDetail.new
-          order_detail.order_id = order.id
-          order_detail.product_id = cart_item.product_id
-          order_detail.purchase_price = order.total_bill_amount + order.shipping_fee
+          @order_detail.order_id = order.id
+          @order_detail.product_id = cart_item.product_id
+          @order_detail.purchase_price = cart_item.subtotal
+          @order_detail.quantity = cart_item.quantity
         end
         redirect_to complete_orders_path
+
+        # カート内のすべて削除
+        current_customer.cart_items.destroy_all
 
       else
         # 保存できなかったときの処理
@@ -57,7 +63,9 @@ class Public::OrdersController < ApplicationController
   end
 
   def index
-    @order= current_customer.order.all
+    @orders = current_customer.orders.all
+    @order_details = OrderDetail.all
+
 
   end
 
