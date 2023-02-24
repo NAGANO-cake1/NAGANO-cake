@@ -1,32 +1,29 @@
-<div class='container mt-5'>
-  <div class='row'>
-    <h2>ログイン</h2>
+<div class="container">
+  <div class="form-group row">
+    <div class="col">
+      <h3 class="mt-2">ログイン</h3>
+    </div>
   </div>
-  <div class="container text-center mt-4">
+  
+  <div class="form-group row">
     <p>
-      <b class="font-weihgt-bold">会員の方はこちらからログイン</b>
+      <b class="col">会員の方はこちらからログイン</b>
     </p>
   </div>
   
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 
-  <div class="form-group">
-    <div class="row">
-      <span>メールアドレス</span><br>
-      <span class="col">
-        <% f.label :email,"メールアドレス" %>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email",placeholder:"sample@example.com",class: "form-control w-100" %>
-      </span>
+  <div class="form-group row">
+    <label class="col-3 mb-0 pr-0">メールアドレス</label>
+    <div class="col-9">
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
     </div>
   </div>
 
-  <div class="form-group">
-    <div class="row">
-      <span>パスワード</span><br>
-      <span class="col">
-        <% f.label :password,"パスワード" %>
-        <%= f.password_field :password, autocomplete: "new-password",class: "form-control w-100" %>
-      </span>
+  <div class="form-group row">
+    <label class="col-3 mb-0 pr-0">パスワード</label>
+    <div class="col-9">
+      <%= f.password_field :password, autocomplete: "new-password" %>
     </div>
   </div>
 
@@ -38,7 +35,7 @@
   <%# end %>
 
   <div class="container text-center mt-4">
-    <%= f.submit "ログイン", class: 'btn btn-outline-success' %>
+    <%= f.submit "ログイン", class: 'btn btn-outline-primary' %>
   </div>
 <% end %>
   <div class="container text-center mt-4">
