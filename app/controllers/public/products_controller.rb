@@ -1,9 +1,18 @@
 class Public::ProductsController < ApplicationController
   def index
-   # @products = Product.all
-    @products = Product.page(params[:page])
-    @quantity = Product.count
     @genres = Genre.all
+    if params[:genre_id]
+      @products_genre = Genre.find(params[:genre_id]).products
+      @products = @products_genre.page(params[:page])
+      @products_count = @products_genre.count
+    elsif params[:search]
+      @search = Product.search(params[:search])
+      @products = @search.page(params[:page])
+      @products_count = @products.count
+    else
+      @products = Product.page(params[:page]).per(8)
+      @products_count = Product.count
+    end
 
   end
 
@@ -14,11 +23,5 @@ class Public::ProductsController < ApplicationController
     @genres = Genre.all
   end
 
-  def search
-    @genre = Genre.find_by(name: params[:genre_name])
-    @products = Product.where(genre_id: @genre.id).page(params[:page]).per(8)
-    @quantity = @products.size
-    @genres = Genre.all
-    render 'public/products/index'
-  end
+
 end
