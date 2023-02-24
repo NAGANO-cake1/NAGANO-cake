@@ -14,7 +14,7 @@
       <tbody>
       <% @cart_items.each do |cart_item| %>
           <tr>
-              <td><%#= image_tag cart_item.product.image, size: "60x50" %>　　<%= cart_item.product.name %></td>
+              <td><%= image_tag cart_item.product.image, size: "60x50" %>　　<%= cart_item.product.name %></td>
               <td class="align-middle"><%= cart_item.product.with_tax_price %></td>
               <td class="align-middle justify-content-between">
                 <%= form_with model: cart_item, url: cart_item_path(cart_item.id), method: :patch do |f| %>

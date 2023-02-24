@@ -41,6 +41,7 @@
 
 
   <%= form_with model: @order, method: :post do |f| %>
+    <%= f.hidden_field :payment_method %>
     <%= f.hidden_field :shipping_name %>
     <%= f.hidden_field :shipping_address %>
     <%= f.hidden_field :shipping_postal_code %>
