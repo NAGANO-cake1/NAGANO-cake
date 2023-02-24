@@ -1,19 +1,20 @@
-<div class='container mt-5'>
-  <div class='row'>
-    <h2>会員一覧</h2>
-  </div>
-  <div class="row mt-4">
+<div class="container my-5 px-5 px-sm-0">
+  <div class="row">
     <div class="col">
-        <table class='table table-hover table-inverse'>
-          <thead>
-            <tr>
-              <th>会員ID</th>
-              <th>氏名</th>
-              <th>メールアドレス</th>
-              <th>ステータス</th>
-            </tr>
-          </thead>
-          <tbody>
+      <div class="row px-5 py-4">
+        <h4 class="bg-light">会員一覧</h4>
+      </div>
+      
+      <table class="table">
+        <thead class="thead-lignt bg-light">
+          <tr>
+            <th>会員ID</th>
+            <th>氏名</th>
+            <th>メールアドレス</th>
+            <th>ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
             <% @customers.each do |customer| %>
             <tr>
               <td><%= customer.id %></td>
@@ -28,8 +29,8 @@
               </td>
             </tr>
             <% end %>
-          </tbody>
-        </table>
+        </tbody>
+      </table>
     </div>
   </div>
   <div class="mt-5">
