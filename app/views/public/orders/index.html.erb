@@ -17,11 +17,11 @@
       <%= order.shipping_address%>
     </td>
     <td>
-      <% order.products.each do |product| %>
-        <%= product.name %>
+      <% order.order_details.each do |order_detail| %>
+        <%= order_detail.product.name %><br>
       <% end %>
     </td>
-    <td><%= order.total_bill_amount %></td>
+    <td><%= order.total_bill_amount.to_s(:delimited) %></td>
 
     <td>
       <% if order.order_status == Order.order_statuses.key(0) %>
