@@ -25,9 +25,9 @@ class Public::OrdersController < ApplicationController
     # 登録済み住所から選択の場合
     elsif params[:order][:select_address] == "1"
 # 登録済み住所がなかった場合は？
-      @order.shipping_name = Delivery_address.find(params[:order][:delivery_address_id]).addressee
-      @order.shipping_postal_code = Delivery_address.find(params[:order][:delevery_address_id]).postal_code
-      @order.shipping_address = Delivery_address.find(params[:order][:delivery_address_id]).address
+      @order.shipping_name = DeliveryAddress.find(params[:order][:delivery_address_id]).addressee
+      @order.shipping_postal_code = DeliveryAddress.find(params[:order][:delivery_address_id]).postal_code
+      @order.shipping_address = DeliveryAddress.find(params[:order][:delivery_address_id]).address
     # 新しいお届け先の場合
     elsif params[:order][:select_address] == "2"
       @order.shipping_name = params[:order][:shipping_name]
@@ -47,6 +47,7 @@ class Public::OrdersController < ApplicationController
           @order_detail.product_id = cart_item.product_id
           @order_detail.purchase_price = cart_item.subtotal
           @order_detail.quantity = cart_item.quantity
+
         end
         redirect_to complete_orders_path
 
@@ -68,6 +69,10 @@ class Public::OrdersController < ApplicationController
 
   end
 
+  def show
+    @order = Order.find(params[:id])
+
+  end
 
   private
 

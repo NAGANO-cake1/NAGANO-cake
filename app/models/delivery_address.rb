@@ -3,10 +3,10 @@ class DeliveryAddress < ApplicationRecord
 
 
 
-  private
+  # private
 
   def address_display
-    '〒' + postal_code + ' ' + address + ' ' + name
+    '〒' + postal_code + ' ' + address + ' ' + addressee
   end
 
 end
