@@ -12,4 +12,10 @@ class Product < ApplicationRecord
     (tax_excluded_price * tax).floor
     end
 
+    # validation
+     validates :name, presence: true
+     validates :description, presence: true
+     validates :tax_excluded_price,  presence: true
+     validates :is_active, presence: true
+
 end
