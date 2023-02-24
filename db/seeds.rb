@@ -14,6 +14,18 @@ adminUser1 = Admin.create!(
     email: 'test@test.com',
     password: 'chocolate-g',
 )
+# Customer Dataの作成(以下で商品のデータで使用するため)
+customerUser1 = Customer.create!(
+    first_name: '令和',
+    last_name: '太郎',
+    first_name_kana: 'レイワ',
+    last_name_kana: 'タロウ',
+    address: '日本',
+    postal_code: '123-4567',
+    telephone_number: '00000000000',
+    email: 'customertest@test.com',
+    password: 'chocolate',
+)
 
 #ジャンルデータを作成
 cakeGenre = Genre.create!(name: 'ケーキ')

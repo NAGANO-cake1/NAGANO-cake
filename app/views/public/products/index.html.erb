@@ -1,40 +1,31 @@
-<div class="container">
+<div class="container mt-5">
   <div class="row">
     <div class="col-lg-2">
-       	<%= render 'public/products/genre', genres: @genres %>
-	  </div>
-    <div  class="col-lg-10">
+      <%= render 'public/products/genre', genres: @genres %>
+    </div>
+    <div class="col-lg-10">
       <h4>商品一覧<span class="small"> (全<%= @products.count %>件)</span></h4>
-          <div class="row row-cols-2 row-cols-md-4">
-            <% @products.each do |product| %>
-              <div class="col mb4">
-                <div class="card border-0">
-                <%= link_to product_path(product) do %>
-                    <% if product.image.attached? %>
-                      <%= image_tag product.image, size: "150x150" %>
-                    <% else %>
-                      <%= image_tag 'no_image.jpg', size: "150x150" %>
-                    <% end %>
-                  <div>
-                  <p><%= product.name %></p>
-                <% end %>
-                    <div>
-                      <span><%= number_to_currency(product.tax_excluded_price, unit: "¥", strip_insignificant_zeros: true) %></span>
-                      <% if product.is_active == false %>
-                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold p-2 rounded">Out of stock</span>
-                      <% else %>
-                        <span class="bg-red-100 text-red-800 text-xs font-semibold p-2 rounded">In stock</span>
-                      <% end %>
-                    </div>
-                  </div>
+      <div class="row row-cols-2 row-cols-md-4">
+        <% @products.each do |product| %>
+          <div class="col mb-4">
+            <div class="card border-0">
+              <%= link_to product_path(product) do %>
+                <%= image_tag product.image.attached? ? product.image : 'no_image.jpg', class: "card-img-top w-100", height: "150px" %>
+                <div class="card-body">
+                  <h5 class="card-title"><%= product.name %></h5>
+                </div>
+              <% end %>
+              <div class="d-flex justify-content-between align-items-center">
+                <span><%= number_to_currency(product.tax_excluded_price, unit: "¥", strip_insignificant_zeros: true) %></span>
+                <span class="badge badge-<%= product.is_active ? "primary" : "danger" %> ml-2"><%= product.is_active ? "In stock" : "Out of stock" %></span>
               </div>
-              </div>
-            <% end %>
-        </div>
-          <div class="col-xs-6 col-xs-offset-3 ">
-                <%= paginate @products %>
+            </div>
           </div>
-          </div>
+        <% end %>
+      </div>
+      <div class="d-flex justify-content-center mt-3">
+        <%= paginate @products %>
+      </div>
     </div>
   </div>
 </div>
