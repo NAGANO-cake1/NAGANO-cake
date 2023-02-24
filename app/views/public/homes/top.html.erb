@@ -1,8 +1,8 @@
-<div class="container mt-5">
+<div class="container mt-3">
     <div class="row">
         <div class="col-lg-2">
             <%= render 'public/products/genre', genres: @genres %>
-        </div>    
+        </div>
             <div class="col-lg-10">
                 <div class="jumbotron">
                     <h5 class="text-left  mt-5">
@@ -11,31 +11,32 @@
                         会員でない方も商品の閲覧はできますが、<br>
                         購入には会員登録が必要になります。<br>
                     </h5>
-                </div>    
-            </div> 
+                </div>
+            </div>
     </div>
     <div class="row">
+        <div class="col-lg-2"></div>
         <div class="col-lg-10">
             <h5>新着商品</h5>
               <div class="row row-cols-2 row-cols-md-4">
                 <% @products.each do |product| %>
-                <div class="col mb-4">
-                    <div class="card border-0">
-                        <%= link_to product_path(product) do %>
-                        <% if product.image.attached? %>
-                            <%= image_tag product.image, size: "150x150" %>
-                        <% else %>
-                            <%= image_tag 'no_image.jpg', size: "150x150" %>
-                        <% end %>
-                        <div class="card-body">
-                            <p class="card-title"><%= product.name %></p>
+                    <div class="col mb-4">
+                        <div class="card border-0">
+                            <%= link_to product_path(product) do %>
+                            <% if product.image.attached? %>
+                                <%= image_tag product.image, size: "150x150" %>
+                            <% else %>
+                                <%= image_tag 'no_image.jpg', size: "150x150" %>
                             <% end %>
-                            <span><%= number_to_currency(product.tax_excluded_price, unit: "¥", strip_insignificant_zeros: true) %></span>
-                            <% end %>
-                        </div>    
+                            <div class="card-body">
+                                <p class="card-title"><%= product.name %></p>
+                                <% end %>
+                                <span><%= number_to_currency(product.tax_excluded_price, unit: "¥", strip_insignificant_zeros: true) %></span>
+                            </div>
+                        </div>
                     </div>
-                </div>  
-              </div>        
-        </div>     
-    </div>                
+                <% end %>
+              </div>
+        </div>
+    </div>
 </div>
