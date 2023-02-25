@@ -1,6 +1,6 @@
 <div class='container mt-5'>
     <div class='row'>
-      <h3>
+      <h3 class="page-name">
           <strong>マイページ</strong>
       </h3>
     </div>
@@ -12,6 +12,7 @@
             </div>
         </div>
     </div>
+    
     <div class='row'>
         <div class="col-md-7">
             <table class="table table-bordered border-dark">
@@ -44,20 +45,16 @@
             </table>
         </div>
     </div>
-    <div class='row'>
-        <div class="d-flex p-2 bd-highlight">
-            <strong>配送先</strong>
-            <div class="col">
-            <%= link_to "一覧を見る", delivery_addresses_path, class: 'btn btn-outline-primary' %>
-            </div>
-        </div>
+    <div class="row mb-2">
+    <div class="col-3">
+      <strong class="pr-4">配送先　</strong>
+      <%= link_to "一覧を見る", delivery_addresses_path, class: 'btn btn-outline-primary btn-sm' %><br>
     </div>
-    <div class='row'>
-        <div class="d-flex p-2 bd-highlight">
-            <strong>注文履歴</strong>
-            <div class="col">
-            <%= link_to "一覧を見る", orders_path, class: 'btn btn-outline-primary' %>
-            </div>
-        </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col-3">
+      <strong class="pr-4">注文履歴</strong>
+      <%= link_to "一覧を見る", orders_path, class: 'btn btn-outline-primary btn-sm' %>
     </div>
+  </div>
 </div>
