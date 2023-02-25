@@ -15,10 +15,19 @@
       </div>
       <div class="row">
         <div class="col-3">
-          <strong>配送先</strong>
+          <strong>注文日</strong>
         </div>
         <div class="col-9">
           <%= l @order.created_at, format: :short %><br>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3">
+          <strong>配送先</strong>
+        </div>
+        <div class="col-9">
+          <%= '〒' + @order.shipping_postal_code + ' ' +@order.shipping_address %><br>
+          <%= @order.shipping_name %>
         </div>
       </div>
       <div class="row">
@@ -47,35 +56,50 @@
         </div>
       <% end %>
 
+        <div class="row">
+          <div class="col-9">
 
-      <table class="table">
-        <thead class="thead-lignt bg-light">
+        <table class="table">
+          <thead class="thead-lignt bg-light">
 
-          <tr>
-            <th>商品名</th>
-            <th>単価（税込）</th>
-            <th>数量</th>
-            <th>小計</th>
-            <th>制作ステータス</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @order.order_details.each do |order_detail| %>
             <tr>
-              <td><%= order_detail.product.name %></td>
-              <td><%= order_detail.purchase_price.to_s(:delimited) %></td>
-              <td><%= order_detail.quantity %></td>
-              <td><%= (order_detail.purchase_price * order_detail.quantity).to_s(:delimited) %></td>
-              <%= form_with model: [@order, order_detail], url: admin_order_order_detail_path(@order,order_detail), method: :patch do |f|%>
-                <td><%= f.select :making_status, OrderDetail.making_statuses.keys.map{|k| [t("enums.order_detail.making_status.#{k}"), k]}%></td>
-                <td><%= f.submit "更新", class: "btn btn-outline-success" %></td>
-              <% end %>
-
+              <th>商品名</th>
+              <th>単価（税込）</th>
+              <th>数量</th>
+              <th>小計</th>
+              <th>制作ステータス</th>
+              <th></th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <% @order.order_details.each do |order_detail| %>
+              <tr>
+                <td><%= order_detail.product.name %></td>
+                <td><%= order_detail.purchase_price.to_s(:delimited) %></td>
+                <td><%= order_detail.quantity %></td>
+                <td><%= (order_detail.purchase_price * order_detail.quantity).to_s(:delimited) %></td>
+                <%= form_with model: [@order, order_detail], url: admin_order_order_detail_path(@order,order_detail), method: :patch do |f|%>
+                  <td><%= f.select :making_status, OrderDetail.making_statuses.keys.map{|k| [t("enums.order_detail.making_status.#{k}"), k]}%></td>
+                  <td><%= f.submit "更新", class: "btn btn-outline-success" %></td>
+                <% end %>
+
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        </div>
+          <div class="col-2 align-self-end">
+            <strong>商品合計</strong><br>
+            <strong>送料</strong><br>
+            <strong>請求金額合計</strong>
+          </div>
+          <div class="col-1 text-right align-self-end">
+            <%= @order.total_bill_amount.to_s(:delimited) + "円" %><br>
+            <%= @order.shipping_fee.to_s(:delimited) + "円" %><br>
+            <strong><%= (@order.total_bill_amount + @order.shipping_fee).to_s(:delimited) + "円" %></strong>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
