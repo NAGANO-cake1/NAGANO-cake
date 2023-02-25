@@ -41,3 +41,11 @@
   object-fit: cover; /* Equivalent of the background-size: cover; of a background-image */
   object-position: center;
 }
+
+.item-card.card {
+  transition: all 0.1s ease-in;
+}
+.item-card.card:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+}
