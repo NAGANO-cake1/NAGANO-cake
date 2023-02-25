@@ -1,11 +1,22 @@
 class Admin::OrderDetailsController < ApplicationController
 
   def update
-    order = OrderDetail.find(params[:order_id])
+    order = Order.find(params[:order_id])
     order_detail = OrderDetail.find(params[:id])
     order_detail.update(making_status_params)
 
+
+    if order_detail.making_status == OrderDetail.making_statuses.key(2)
+      order.order_status = Order.order_statuses.key(2)
+      order.save
+    end
+
+
+
+
     redirect_to admin_order_path(order.id)
+
+
   end
 
   private
