@@ -13,7 +13,6 @@ class Public::OrdersController < ApplicationController
 
     # binding.pry
 
-
     # お届け先
     # ご自身の住所の場合
     if params[:order][:select_address] == "0"
@@ -75,7 +74,6 @@ class Public::OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
-
   end
 
   private
