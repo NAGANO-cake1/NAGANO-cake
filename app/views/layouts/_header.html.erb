@@ -1,7 +1,10 @@
 <header>
   <nav class="navbar navbar-expand-lg navbar-light bg-light p-4">
     <div class="container-fluid">
-       <%= image_tag 'logo.image.jpg', :size => '50x50' %>
+
+
+
+       <div><%= link_to image_tag('logo.image.jpg', :size => '50x50'), root_path%></div>
       <!--顧客側ログイン-->
       <% if customer_signed_in? %>
       <span class="navbar-brand mb-0 h1">ようこそ、<%= current_customer.last_name %> さん!</span> <!--まだ名前のリンク入れてないよ。-->

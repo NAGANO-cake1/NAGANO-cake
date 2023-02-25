@@ -4,7 +4,7 @@
       <div class="row px-5 py-4">
         <h4 class="bg-light">注文履歴一覧</h4>
       </div>
-      
+
       <table class="table">
         <thead class="thead-lignt bg-light">
           <tr>
@@ -22,7 +22,7 @@
                   <%= l order.created_at %><!--lメソッドで簡単に日時を表示-->
                 <% end %>
               </td>
-              <td><%= order.customer.first_name %><%= order.customer.first_last_name %></td><!--購入者-->
+              <td><%= order.customer.first_name %><%= order.customer.last_name %></td><!--購入者-->
               <td><%= order.order_details.sum(:quantity) %></td><!--注文個数の合計-->
               <td><%= order.order_status_i18n %></td><!--注文ステータス。「i18n」は各言語に適したものに置き換えてる-->
             </tr>
