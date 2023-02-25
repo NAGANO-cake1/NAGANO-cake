@@ -33,6 +33,9 @@ class Public::OrdersController < ApplicationController
       @order.shipping_name = params[:order][:shipping_name]
       @order.shipping_postal_code = params[:order][:shipping_postal_code]
       @order.shipping_address = params[:order][:shipping_address]
+      if @order.shipping_name.blank? || @order.shipping_postal_code.blank? || @order.shipping_address.blank?
+        redirect_to request.referer
+      end
     end
   end
 
