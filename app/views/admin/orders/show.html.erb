@@ -4,7 +4,7 @@
 <strong>支払方法</strong>
   <% if @order.payment_method == Order.payment_methods.key(0) %>
     <%= Order.payment_methods_i18n[:credit_card] %>
-    <% elsif @order.payment_method == Order.payment_methods.key(1) %>
+  <% elsif @order.payment_method == Order.payment_methods.key(1) %>
     <%= Order.payment_methods_i18n[:transfer] %>
   <% end %>
   <br>
@@ -14,25 +14,29 @@
   <%= f.submit "更新"%>
 <% end %>
 <br>
-<table class="table">
-  <tr>
-    <th>商品名</th>
-    <th>単価（税込）</th>
-    <th>数量</th>
-    <th>小計</th>
-    <th>制作ステータス</th>
-    <th></th>
-  </tr>
+
+  <table class="table">
+    <tr>
+      <th>商品名</th>
+      <th>単価（税込）</th>
+      <th>数量</th>
+      <th>小計</th>
+      <th>制作ステータス</th>
+      <th></th>
+    </tr>
     <% @order.order_details.each do |order_detail| %>
-      <tr>
-        <td><%= order_detail.product.name %></td>
-        <td><%= order_detail.purchase_price.to_s(:delimited) %></td>
-        <td><%= order_detail.quantity %></td>
-        <td><%= (order_detail.purchase_price * order_detail.quantity).to_s(:delimited) %></td>
-        <%= form_with model: order_detail, url: admin_order_order_detail_path(order_detail.order.id,order_detail.id), method: :patch do |f|%>
-          <td><%= f.select :making_status, OrderDetail.making_statuses.keys.map{|k| [t("enums.order_detail.making_status.#{k}"), k]}%></td>
-          <td><%= f.submit "更新" %></td>
-        <% end %>
+
+        <tr>
+          <td><%= order_detail.product.name %></td>
+          <td><%= order_detail.purchase_price.to_s(:delimited) %></td>
+          <td><%= order_detail.quantity %></td>
+          <td><%= (order_detail.purchase_price * order_detail.quantity).to_s(:delimited) %></td>
+          <%= form_with model: [@order, order_detail], url: admin_order_order_detail_path(@order,order_detail), method: :patch do |f|%>
+            <td><%= f.select :making_status, OrderDetail.making_statuses.keys.map{|k| [t("enums.order_detail.making_status.#{k}"), k]}%></td>
+            <td><%= f.submit "更新" %></td>
+          <% end %>
+
       </tr>
     <% end %>
+
   </table>
