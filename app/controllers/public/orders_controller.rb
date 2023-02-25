@@ -4,44 +4,35 @@ class Public::OrdersController < ApplicationController
   end
 
   def confirm
+    @order = Order.new(order_params)
+    @cart_items = current_customer.cart_items.all
+    @total = @cart_items.inject(0) { |sum, cart_item| sum + cart_item.subtotal }
+    @order.total_bill_amount = @total + @order.shipping_fee
 
-    if (params[:order][:shipping_name] == nil) || (params[:order][:shipping_postal_code] == nil) || (params[:order][:shipping_address] == nil)
-      redirect_back(fallback_location: root_path)
+    # @total = @cart_items.inject(0){|sum, item| sum +@cart_item.product.with_tax_price*item.quantity}
+
+    # binding.pry
+
+
+    # お届け先
+    # ご自身の住所の場合
+    if params[:order][:select_address] == "0"
+      @order.shipping_name = current_customer.last_name + ' ' + current_customer.first_name
+      @order.shipping_postal_code = current_customer.postal_code
+      @order.shipping_address = current_customer.address
       # byebug
-    else
 
-      @order = Order.new(order_params)
-      @cart_items = current_customer.cart_items.all
-      @total = @cart_items.inject(0) { |sum, cart_item| sum + cart_item.subtotal }
-      @order.total_bill_amount = @total + @order.shipping_fee
-
-      # @total = @cart_items.inject(0){|sum, item| sum +@cart_item.product.with_tax_price*item.quantity}
-
-      # binding.pry
-
-
-      # お届け先
-      # ご自身の住所の場合
-      if params[:order][:select_address] == "0"
-        @order.shipping_name = current_customer.last_name + ' ' + current_customer.first_name
-        @order.shipping_postal_code = current_customer.postal_code
-        @order.shipping_address = current_customer.address
-        # byebug
-
-      if current_customer.delivery_addresses.present?
-      # 登録済み住所から選択の場合
-      elsif params[:order][:select_address] == "1"
-  # 登録済み住所がなかった場合は？
-        @order.shipping_name = DeliveryAddress.find(params[:order][:delivery_address_id]).addressee
-        @order.shipping_postal_code = DeliveryAddress.find(params[:order][:delivery_address_id]).postal_code
-        @order.shipping_address = DeliveryAddress.find(params[:order][:delivery_address_id]).address
-      end
-      # 新しいお届け先の場合
-      elsif params[:order][:select_address] == "2"
-        @order.shipping_name = params[:order][:shipping_name]
-        @order.shipping_postal_code = params[:order][:shipping_postal_code]
-        @order.shipping_address = params[:order][:shipping_address]
-      end
+    # 登録済み住所から選択の場合
+    elsif params[:order][:select_address] == "1"
+# 登録済み住所がなかった場合は？
+      @order.shipping_name = DeliveryAddress.find(params[:order][:delivery_address_id]).addressee
+      @order.shipping_postal_code = DeliveryAddress.find(params[:order][:delivery_address_id]).postal_code
+      @order.shipping_address = DeliveryAddress.find(params[:order][:delivery_address_id]).address
+    # 新しいお届け先の場合
+    elsif params[:order][:select_address] == "2"
+      @order.shipping_name = params[:order][:shipping_name]
+      @order.shipping_postal_code = params[:order][:shipping_postal_code]
+      @order.shipping_address = params[:order][:shipping_address]
     end
   end
 
