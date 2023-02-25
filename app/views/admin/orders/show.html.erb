@@ -1,42 +1,81 @@
-<h4>注文履歴詳細</h4>
-<strong>購入者</strong><%= @order.customer.last_name + @order.customer.first_name %><br>
-<strong>配送先</strong><%= l @order.created_at, format: :short %><br>
-<strong>支払方法</strong>
-  <% if @order.payment_method == Order.payment_methods.key(0) %>
-    <%= Order.payment_methods_i18n[:credit_card] %>
-  <% elsif @order.payment_method == Order.payment_methods.key(1) %>
-    <%= Order.payment_methods_i18n[:transfer] %>
-  <% end %>
-  <br>
-<strong>注文ステータス</strong>
-<%= form_with model: @order, url: admin_order_path(@order.id), method: :patch do |f|%>
-  <%= f.select :order_status, Order.order_statuses.keys.map{|k| [t("enums.order.order_status.#{k}"), k]}%>
-  <%= f.submit "更新"%>
-<% end %>
-<br>
+<div class="container my-5 px-5 px-sm-0">
+  <div class="row">
+    <div class="col">
+      <div class="row px-5 py-4">
+        <h4 class="bg-light">注文履歴詳細</h4>
+      </div>
 
-  <table class="table">
-    <tr>
-      <th>商品名</th>
-      <th>単価（税込）</th>
-      <th>数量</th>
-      <th>小計</th>
-      <th>制作ステータス</th>
-      <th></th>
-    </tr>
-    <% @order.order_details.each do |order_detail| %>
+      <div class="row">
+        <div class="col-3">
+          <strong>購入者</strong>
+        </div>
+        <div class="col-9">
+          <%= @order.customer.last_name + @order.customer.first_name %><br>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3">
+          <strong>配送先</strong>
+        </div>
+        <div class="col-9">
+          <%= l @order.created_at, format: :short %><br>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3">
+          <strong>支払方法</strong>
+          </div>
+        <div class="col-9">
+            <% if @order.payment_method == Order.payment_methods.key(0) %>
+              <%= Order.payment_methods_i18n[:credit_card] %>
+            <% elsif @order.payment_method == Order.payment_methods.key(1) %>
+              <%= Order.payment_methods_i18n[:transfer] %>
+            <% end %>
+            <br>
+          </div>
+      </div>
 
-        <tr>
-          <td><%= order_detail.product.name %></td>
-          <td><%= order_detail.purchase_price.to_s(:delimited) %></td>
-          <td><%= order_detail.quantity %></td>
-          <td><%= (order_detail.purchase_price * order_detail.quantity).to_s(:delimited) %></td>
-          <%= form_with model: [@order, order_detail], url: admin_order_order_detail_path(@order,order_detail), method: :patch do |f|%>
-            <td><%= f.select :making_status, OrderDetail.making_statuses.keys.map{|k| [t("enums.order_detail.making_status.#{k}"), k]}%></td>
-            <td><%= f.submit "更新" %></td>
+      <%= form_with model: @order, url: admin_order_path(@order.id), method: :patch do |f|%>
+        <div class="row">
+          <div class="col-3">
+            <strong>注文ステータス</strong>
+          </div>
+          <div class="col-9">
+            <%= f.select :order_status, Order.order_statuses.keys.map{|k| [t("enums.order.order_status.#{k}"), k]}%>
+            <%= f.submit "更新", class: "btn btn-outline-success"%>
+          </div>
+        </div>
+      <% end %>
+
+
+      <table class="table">
+        <thead class="thead-lignt bg-light">
+
+          <tr>
+            <th>商品名</th>
+            <th>単価（税込）</th>
+            <th>数量</th>
+            <th>小計</th>
+            <th>制作ステータス</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @order.order_details.each do |order_detail| %>
+            <tr>
+              <td><%= order_detail.product.name %></td>
+              <td><%= order_detail.purchase_price.to_s(:delimited) %></td>
+              <td><%= order_detail.quantity %></td>
+              <td><%= (order_detail.purchase_price * order_detail.quantity).to_s(:delimited) %></td>
+              <%= form_with model: [@order, order_detail], url: admin_order_order_detail_path(@order,order_detail), method: :patch do |f|%>
+                <td><%= f.select :making_status, OrderDetail.making_statuses.keys.map{|k| [t("enums.order_detail.making_status.#{k}"), k]}%></td>
+                <td><%= f.submit "更新", class: "btn btn-outline-success" %></td>
+              <% end %>
+
+            </tr>
           <% end %>
-
-      </tr>
-    <% end %>
-
-  </table>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
