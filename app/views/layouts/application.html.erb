@@ -12,13 +12,13 @@
   </head>
 
   <body>
+
     <%= render'layouts/header' %>
 
     <main class="mb-auto">
       <%= yield %>
+       <div style="height: 100px;" />
     </main>
-  <footer class="fixed-bottom text-center p-2 bg-light ">
     <%= render 'layouts/footer' %>
-  </footer>
   </body>
 </html>
