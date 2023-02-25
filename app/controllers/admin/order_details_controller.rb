@@ -11,9 +11,10 @@ class Admin::OrderDetailsController < ApplicationController
       order.save
     end
 
-
-
-
+    if order.order_details.count == order.order_details.where(making_status: OrderDetail.making_statuses.key(3)).count
+      order.order_status = Order.order_statuses.key(3)
+      order.save
+    end
     redirect_to admin_order_path(order.id)
 
 

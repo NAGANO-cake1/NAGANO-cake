@@ -15,6 +15,7 @@ class Admin::OrdersController < ApplicationController
           order_detail.save
         end
     end
+
     redirect_to admin_order_path(order.id)
 
   end
