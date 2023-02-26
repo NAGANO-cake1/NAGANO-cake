@@ -1,37 +1,29 @@
-<div class="container my-5 px-5 px-sm-0">
-  <div class="row">
-    <div class="col">
-      <div class="row px-5 py-4">
-        <h4 class="bg-light">注文履歴一覧</h4>
-      </div>
-
-      <table class="table">
-        <thead class="thead-lignt bg-light">
-          <tr>
-            <th>購入日時</th>
-            <th>購入者</th>
-            <th>注文個数</th>
-            <th>注文ステータス</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @orders.each do |order| %>
-            <tr>
-              <td><!--購入日時（詳細リンク付き）が入る-->
-                <%= link_to admin_order_path(order.id) do %><!--注文詳細リンク-->
-                  <%= l order.created_at %><!--lメソッドで簡単に日時を表示-->
-                <% end %>
-              </td>
-              <td><%= order.customer.last_name %><%= order.customer.first_name %></td><!--購入者-->
-              <td><%= order.order_details.sum(:quantity) %></td><!--注文個数の合計-->
-              <td><%= order.order_status_i18n %></td><!--注文ステータス。「i18n」は各言語に適したものに置き換えてる-->
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
+<%= render :layout => '/admin/shared/section_layout', :locals => {:title => '注文履歴一覧'} do %>
+  <table class="table">
+    <thead class="thead-lignt bg-light">
+      <tr>
+        <th>購入日時</th>
+        <th>購入者</th>
+        <th>注文個数</th>
+        <th>注文ステータス</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <tr>
+          <td><!--購入日時（詳細リンク付き）が入る-->
+            <%= link_to admin_order_path(order.id) do %><!--注文詳細リンク-->
+              <%= l order.created_at %><!--lメソッドで簡単に日時を表示-->
+            <% end %>
+          </td>
+          <td><%= order.customer.last_name %><%= order.customer.first_name %></td><!--購入者-->
+          <td><%= order.order_details.sum(:quantity) %></td><!--注文個数の合計-->
+          <td><%= order.order_status_i18n %></td><!--注文ステータス。「i18n」は各言語に適したものに置き換えてる-->
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
   <div class="mt-5">
-    <%= paginate @orders %>
+    <%= paginate @orders, theme: 'twitter-bootstrap-4'  %>
   </div>
-</div>
+<% end %>

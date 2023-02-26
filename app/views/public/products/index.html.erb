@@ -4,8 +4,6 @@
       <%= render 'public/products/genre', genres: @genres %>
     </div>
     <div class="col-lg-10">
-
-
       <h4 class="d-inline bg-light">商品一覧<span class="small"> (全<%= @products.count %>件)</span></h4>
       <div class="row row-cols-2 row-cols-md-4 mt-4">
         <% @products.each do |product| %>
