@@ -1,4 +1,7 @@
 <%= render :layout => '/admin/shared/section_layout', :locals => {:title => '商品一覧'} do %>
+  <div class="row text-right m-3">
+    <%= link_to "+", new_admin_product_path, class: "btn btn-lg rounded-circle text-right bg-light ml-auto shadow-sm" %>
+  </div>
   <table class="table">
   <thead class="thead-lignt bg-light">
     <tr>
