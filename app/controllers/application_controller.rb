@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
     before_action :authenticate_admin!, if: -> { request.path =~ /^\/admin/ }
-    before_action :authenticate_customer!, if: -> { request.path =~ /^\/customer/ }
+    before_action :authenticate_customer!, if: -> { request.path =~ /^\/customer/ || request.path =~ /^\/cart_items/ || request.path =~ /^\/orders/ || request.path =~ /^\/delivery_addresses/ }
 
   private
   def after_sign_out_path_for(resource_or_scope)
@@ -12,12 +12,4 @@ class ApplicationController < ActionController::Base
         root_path
     end
   end
-
-#   def admin_url
-#      request.fullpath.include?("/admin")
-#   end
-
-#   def customer_url
-#      request.fullpath.include?("/customer")
-#   end
 end
