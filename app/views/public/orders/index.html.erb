@@ -1,0 +1,55 @@
+<div class="container my-5 px-5 px-sm-0">
+  <div class="row">
+    <div class="col">
+      <div class="row px-5 py-4">
+
+        <h4 class="bg-light">注文履歴一覧</h4>
+      </div>
+
+      <table class="table">
+        <tr>
+          <th>注文日</th>
+          <th>配送先</th>
+          <th>注文商品</th>
+          <th>支払金額</th>
+          <th>ステータス</th>
+          <th>注文詳細</th>
+        </tr>
+        <% @orders.each do |order|%>
+        <tr>
+          <td><%= l order.created_at, format: :short %></td>
+          <td>
+            <%= '〒' + order.shipping_postal_code%><br>
+            <%= order.shipping_address%>
+          </td>
+          <td>
+            <% order.order_details.each do |order_detail| %>
+              <%= order_detail.product.name %><br>
+            <% end %>
+          </td>
+          <td><%= order.total_bill_amount.to_s(:delimited) %></td>
+
+          <td>
+            <% if order.order_status == Order.order_statuses.key(0) %>
+              <%= Order.order_statuses_i18n[:waiting_for_payment] %>
+            <% elsif order.order_status == Order.order_statuses.key(1) %>
+              <%= Order.order_statuses_i18n[:payment_confirmation] %>
+            <% elsif order.order_status == Order.order_statuses.key(2) %>
+              <%= Order.order_statuses_i18n[:now_at_work] %>
+            <% elsif order.order_status == Order.order_statuses.key(3) %>
+              <%= Order.order_statuses_i18n[:shipping_preparation] %>
+            <% elsif order.order_status == Order.order_statuses.key(4) %>
+              <%= Order.order_statuses_i18n[:sent] %>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to "表示する" , order_path(order.id) ,class:"btn btn-outline-primary"%>
+          </td>
+        </tr>
+        <% end %>
+
+
+      </table>
+    </div>
+  </div>
+</div>

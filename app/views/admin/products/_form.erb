@@ -1,0 +1,38 @@
+<div class="container my-5 px-5 px-sm-0">
+
+    <%= form_with(model: [ :admin, @product]) do |f| %>
+      <div class="form-group row">
+        <%= f.label :商品画像, class: 'col-md-3 font-weight-bold'%>
+        <%= f.file_field :image, accept: "image/*" %>
+      </div>
+      <div class="form-group">
+        <label for="product_name"><strong>商品名</strong></label>
+        <%= f.text_field :name, required: true,class: 'form-control book_title' %>
+      </div>
+      <div class="form-group">
+        <label for="product_discription"><strong>商品説明</strong></label>
+        <%= f.text_area :description,required: true, class: 'form-control book_body' %>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :ジャンル,required: true, class: 'col-md-3 font-weight-bold' %>
+        <%= f.collection_select(:genre_id, Genre.all, :id, :name, {prompt: "--選択してください"}, class: "col-md-5 form-control") %>
+      </div>
+
+      <div class="form-group row">
+          <%= f.label :税抜価格, class: 'col-md-3 font-weight-bold' %>
+          <%= f.number_field :tax_excluded_price, required: true,class: 'col-md-5 form-control' %><spna class="col-md-1">円</span>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :販売ステータス, class: 'col-md-3 font-weight-bold' %>
+        <p class="col-2"><%= f.radio_button :is_active, "true" %>販売中</p>
+        <p class="col-2"><%= f.radio_button :is_active, "false" %>販売停止中</p>
+      </div>
+
+      <div class="form-group">
+        <%= f.submit btn , class: 'btn btn-success' %>
+      </div>
+    <% end %>
+
+</div>
