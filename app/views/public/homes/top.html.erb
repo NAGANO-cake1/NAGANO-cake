@@ -20,21 +20,7 @@
             <h5>新着商品</h5>
               <div class="row row-cols-2 row-cols-md-4">
                 <% @products.each do |product| %>
-                    <div class="col mb-4">
-                        <div class="card border-0">
-                            <%= link_to product_path(product) do %>
-                            <% if product.image.attached? %>
-                                <%= image_tag product.image, size: "150x150" %>
-                            <% else %>
-                                <%= image_tag 'no_image.jpg', size: "150x150" %>
-                            <% end %>
-                            <div class="card-body">
-                                <p class="card-title"><%= product.name %></p>
-                                <% end %>
-                                <span><%= number_to_currency(product.tax_excluded_price, unit: "¥", strip_insignificant_zeros: true) %></span>
-                            </div>
-                        </div>
-                    </div>
+                    <%= render 'public/shared/card', product: product %>
                 <% end %>
               </div>
         </div>

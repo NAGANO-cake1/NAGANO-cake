@@ -1,0 +1,22 @@
+<div class="col mb-4">
+  <div class="item-card card border-0">
+    <%=link_to product_path(product) do %>
+      <div class="card-link">
+        <% if product.image.attached? %>
+          <%=image_tag product.image, size: "150x150", class: "card-img-top border" %>
+        <% else %>
+          <%=image_tag 'no_image.jpg', size: "150x150", class: "card-img-top border" %>
+        <% end %>
+      </div>
+      <% end %>
+      <div class="card-body p-0 mt-2">
+        <%=link_to product_path(product) do %>
+          <h5 class="card-title text-truncate mb-1"><%= product.name %></h5>
+          <% end %>
+          <div class="d-flex justify-content-between align-items-center">
+            <span><%= number_to_currency(product.tax_excluded_price, unit: "¥", strip_insignificant_zeros: true) %></span>
+            <span class="badge badge-<%= product.is_active ? "primary " : "danger " %> ml-2"> <%= product.is_active ? "In stock" : "Out of stock" %></span>
+          </div>
+      </div>
+  </div>
+</div>
