@@ -64,4 +64,4 @@ ER図の作成から行いました。
 
 - [`MDN Web Docs`](https://developer.mozilla.org/ja/docs/Web/JavaScript)
 - [`Rails ガイド`](https://railsguides.jp/active_record_validations.html)
-- [git style guide]((<https://github.com/objectx/git-style-guide#%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81>))
+- [`git style guide`](<https://github.com/objectx/git-style-guide#%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81>)
